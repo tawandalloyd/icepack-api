@@ -1,0 +1,23 @@
+import pandas
+df = pandas.read_csv('sample_data/publist.csv')
+print(df.head())
+
+
+exec(open('apiHelper.py').read()) # import some helper classes which we've written for you.
+
+api = apiHelper(modelType="tsp-mcvfz472gty6")
+
+sr = tsp_mcvfz472gty6_pb2.SolveRequest()
+sr.solveType = 0
+
+m = sr.model
+
+# or add them individually 
+for index, row in df.iterrows():
+  l = tsp_mcvfz472gty6_pb2.Geocode()
+  l.id = row['id']
+  l.x = row['X']
+  l.y = row['Y']
+  m.points.append(l)  
+
+print(m)
